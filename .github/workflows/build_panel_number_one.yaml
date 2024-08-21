@@ -35,4 +35,4 @@ jobs:
           asset_name: panel-number-one-base-${{ github.event.release.tag_name }}.uf2
           asset_content_type: binary/octet-stream
       - name: Job outcome
-        run: echo "🍏 This job's status is ${{ job.status }}."
+        run: echo "This job's status is ${{ job.status }}."
