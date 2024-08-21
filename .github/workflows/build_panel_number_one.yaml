@@ -22,8 +22,14 @@ jobs:
           make BOARD=RPI_PICO_W submodules
           make BOARD=RPI_PICO_W clean
           make BOARD=RPI_PICO_W
-      - name: List files in the repository
-        run: |
-          ls
+      - name: Upload
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./build-RPI_PICO_W/firmware.uf2
+          asset_name: panel-number-one-base-${{ github.event.release.tag_name }}.uf2
+          asset_content_type: binary/octet-stream
       - name: Job outcome
         run: echo "🍏 This job's status is ${{ job.status }}."
