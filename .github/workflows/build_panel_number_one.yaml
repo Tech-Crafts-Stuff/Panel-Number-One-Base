@@ -9,11 +9,11 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Set up environment
-      - run: |
+        run: |
           sudo apt-get install gcc-arm-none-eabi libnewlib-arm-none-eabi
           arm-none-eabi-gcc --version
       - name: Build micropython
-      - run: |
+        run: |
           git clone https://github.com/micropython/micropython.git
           cd micropython
           make -C mpy-cross
@@ -25,4 +25,5 @@ jobs:
       - name: List files in the repository
         run: |
           ls
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: Job outcome
+        run: echo "🍏 This job's status is ${{ job.status }}."
