@@ -22,14 +22,10 @@ jobs:
           make BOARD=RPI_PICO_W submodules
           make BOARD=RPI_PICO_W clean
           make BOARD=RPI_PICO_W
-      - name: Check lS
-        run: |
-          pwd
-          ls
       - name: Upload compiled UF2 to release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: build-RPI_PICO_W/firmware.uf2
+          files: micropython/ports/rp2/build-RPI_PICO_W/firmware.uf2
       - name: Job outcome
         run: echo "This job's status is ${{ job.status }}."
