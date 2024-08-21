@@ -1,10 +1,7 @@
 name: build_panel_number_one
 
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on:   
-  release:
-    types:
-      - created
+on: push
 jobs:
   Create-Base-UF2:
     runs-on: ubuntu-latest
@@ -26,13 +23,10 @@ jobs:
           make BOARD=RPI_PICO_W clean
           make BOARD=RPI_PICO_W
       - name: Upload compiled UF2 to release
+        uses: softprops/action-gh-release@v2
+          if: startsWith(github.ref, 'refs/tags/')
+          with:
+            files: ./build-RPI_PICO_W/firmware.uf2
         uses: actions/upload-release-asset@v1.0.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./build-RPI_PICO_W/firmware.uf2
-          asset_name: panel-number-one-base-${{ github.event.release.tag_name }}.uf2
-          asset_content_type: binary/octet-stream
       - name: Job outcome
         run: echo "This job's status is ${{ job.status }}."
