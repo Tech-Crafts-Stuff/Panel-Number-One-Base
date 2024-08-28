@@ -8,17 +8,18 @@ import time, random
 class PanelLights:
 
     # Set some constants containing RGB values for the addressable LEDS
-    RED = (96,0,0)
+    RED = (128,0,0)
     OFF = (0,0,0)
     BLUE = (0,0,128)
     GREEN = (0,128,0)
     BRIGHTWHITE = (190,75,15)
+    #BRIGHTWHITE = (255,255,255)
     WHITE = (143, 55, 11)
 
     # A couple of lists that mark the position of LEDs that have a red button
     # or mark the position of the small round lights on the panel
-    REDLEDPOSITION = [1,6,11]
-    SMALLROUNDLIGHTPOSITION = [7]
+    REDLEDPOSITION = [1,6,12]
+    SMALLROUNDLIGHTPOSITION = [7, 8]
 
     # These are variables that are required for the LEDs to function
     # which are created when the class is created
@@ -62,13 +63,8 @@ class PanelLights:
         time.sleep(random.choice([2,3,4,5]))
     
 # Create the panel class, remembering to specify the number of LEDs
-panel = PanelLights(12)
+panel = PanelLights(13)
 
 # Start a loop which calls the activatePanel() function
 while True:
     panel.activatePanel()
-
-
-    
-    
-  
