@@ -8,12 +8,11 @@ import time, random
 class PanelLights:
 
     # Set some constants containing RGB values for the addressable LEDS
-    RED = (128,0,0)
+    RED = (64,0,0)
     OFF = (0,0,0)
-    BLUE = (0,0,128)
-    GREEN = (0,128,0)
+    BLUE = (0,0,64)
+    GREEN = (0,64,0)
     BRIGHTWHITE = (190,75,15)
-    #BRIGHTWHITE = (255,255,255)
     WHITE = (143, 55, 11)
 
     # A couple of lists that mark the position of LEDs that have a red button
@@ -30,6 +29,8 @@ class PanelLights:
         # There are 13 in total
         self.np = neopixel.NeoPixel(Pin(11), numberOfPixels)
         self.onOrOff = [1] * numberOfPixels # Set on/off state for all LEDs
+        
+        self.currentColour = self.GREEN
 
     # This is the main function that sets the colour values of the LEDS
     # and decides whether they should display or not
@@ -47,11 +48,15 @@ class PanelLights:
                 self.np[j] = self.OFF
             else:
                 if j == 0:
-                    self.np[j] = self.WHITE
+                    self.np[j] = self.BRIGHTWHITE
                 elif j in self.REDLEDPOSITION:
                     self.np[j] = self.RED
                 elif j in self.SMALLROUNDLIGHTPOSITION:
-                    self.np[j] = random.choice([self.BLUE, self.GREEN, self.RED])
+                    newColour = random.choice([self.BLUE, self.GREEN, self.RED])
+                    while newColour == self.currentColour:
+                        newColour = random.choice([self.BLUE, self.GREEN, self.RED])
+                    self.currentColour = newColour
+                    self.np[j] = newColour
                 else:
                     self.np[j] = self.WHITE
 
